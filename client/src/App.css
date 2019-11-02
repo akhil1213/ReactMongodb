@@ -1,0 +1,23 @@
+.additem{
+  margin-top:10px;
+}
+.remove-btn{
+  margin-left:6px;
+}
+/*deleting stuff and making the opacity high and opacity low and each opacity transitions.
+so when you delete you make your item thats being deleted fade out by changing opacity.
+*/
+.additem{
+  opacity:0.1;
+}
+.fade-enter-active{
+    opacity:1;/*fully visible*/
+    transition: opacity 2000ms ease-in;
+}
+.fade-exit{
+  opacity:1;
+}
+.fade-exit-active{
+  opacity:0.1;
+  transition: opacity 3000ms ease-in;
+}
