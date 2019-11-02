@@ -33,13 +33,9 @@ router.post("/", (req,res) => {
 router.delete("/:id", (req,res) => {
     Item.findById(req.params.id)
         .then(item => item.remove().then(() => res.json({success:true})));
-    newItem.save().then(item => res.json(item));
+    newItem.save().then(item => res.json(item))
+    .catch(err => res.status(404).json({success:false}));;
 })//if user gives wrong id we catch error
-.catch(err => res.status(404).json({success:false}));
-
-
-
-
 
 module.exports = router;//no other file will be able to read whats in here without this
 
