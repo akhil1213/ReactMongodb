@@ -12,9 +12,6 @@ class ShoppingList extends Component {
         items: []
     }
     componentDidMount(){
-        this.getDataFromDb();
-    }
-    getDataFromDb = () => {
         axios.get('http://www.localhost:5000/api/items')
             .then( (response) => {
                 this.setState({items:response.data});
@@ -28,8 +25,6 @@ class ShoppingList extends Component {
             id:uuid(),
             name:message
         });
-        this.getDataFromDb();
-        this.render();
     }
     render(){
         //const { items } = this.state;//instead of using this.state.items you just use items
@@ -42,6 +37,9 @@ class ShoppingList extends Component {
                     const name = prompt('enter item');
                     if(name){//if name has been entered.
                         this.putDataToDB(name);
+                        this.setState( state => ({
+                            items: [...state.items, { id: uuid(), name:name}]//... takes whatever s in state.item as of now and then adds the 2nd parameter object to it.
+                        }));
                     }
                 }}>Add Item</Button>
                 <ListGroup>
