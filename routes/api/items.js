@@ -26,11 +26,11 @@ router.post("/", (req,res) => {
     newItem.save().then(item => res.json(item));
 })
 
-// @route POST api/items
-//@desc Create a post
+// @route DELETE api/items
+//@desc Delete a post
 // @access public
 router.delete("/:id", (req,res) => {
-    Item.findByIdAndRemove(req.params.id, (err,data) => {
+    Item.findByIdAndRemove({ _id:req.params.id }, (err,data) => {
         console.log(err);
     })
 })//if user gives wrong id we catch error
@@ -43,8 +43,8 @@ router.put("/:id", (req,res) => {
         name: req.body.name
     });
     Item.findByIdAndUpdate({_id: req.params.id}, {$set: {name:req.body.name}}, (err) => {
-        if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true });
+        if (err) return res.json({ success: false, error: err });//using postman 
+        return res.json({ success: true });//used postman to check if current route worked properly
     });
 })//if user gives wrong id we catch error
 module.exports = router;//no other file will be able to read whats in here without this

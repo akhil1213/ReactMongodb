@@ -14,6 +14,7 @@ class ShoppingList extends Component {
     componentDidMount(){
         axios.get('http://www.localhost:5000/api/items')
             .then( (response) => {
+                console.log(response.data);
                 this.setState({items:response.data});
             })
             .catch(function (error) {
@@ -27,7 +28,7 @@ class ShoppingList extends Component {
         });
     }
     deleteFromDB = (id) =>{
-        axios.delete(`http://www.localhost:5000/api/items/5dbf2962ff77f52ccb310f7a`)
+        axios.delete('http://www.localhost:5000/api/items/'+id)
         .then(res => console.log(res));
     }
     render(){
@@ -48,19 +49,19 @@ class ShoppingList extends Component {
                 }}>Add Item</Button>
                 <ListGroup>
                     <TransitionGroup className="shopping-list">
-                        {this.state.items.map(({id,name})=>(
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {this.state.items.map(({_id,name})=>(//inside state array mongodb has variable name as _id not id which took a while to figure out.
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>{name}
                                 <Button 
                                     className="remove-btn"
                                     color="danger"
                                     size="sm"
                                     onClick={() => {
-                                        // this.setState(state => ({
-                                        //     items: state.items.filter(item =>  item.id != id)
-                                        // }));
+                                        this.setState(state => ({
+                                            items: state.items.filter(item =>  item.id != id)
+                                        }));
                                         console.log(this.state.items);
-                                        this.deleteFromDB({id});
+                                        this.deleteFromDB(_id);
                                     }}>
                                 &times;
                                 </Button>
