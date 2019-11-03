@@ -31,6 +31,10 @@ class ShoppingList extends Component {
         axios.delete('http://www.localhost:5000/api/items/'+id)
         .then(res => console.log(res));
     }
+    updateNameForId = (id,name) => {
+        axios.put('http://www.localhost:5000/api/items/'+id,{name:name})
+        .then(res=> console.log(res));
+    }
     render(){
         //const { items } = this.state;//instead of using this.state.items you just use items
         return(
@@ -57,10 +61,17 @@ class ShoppingList extends Component {
                                     color="danger"
                                     size="sm"
                                     onClick={() => {
+                                        const name = prompt('change name');
+                                        this.updateNameForId(_id,name);
+                                    }}></Button>
+                                <Button 
+                                    className="remove-btn"
+                                    color="danger"
+                                    size="sm"
+                                    onClick={() => {
                                         this.setState(state => ({
-                                            items: state.items.filter(item =>  item.id != id)
+                                            items: state.items.filter(item =>  item._id != _id)
                                         }));
-                                        console.log(this.state.items);
                                         this.deleteFromDB(_id);
                                     }}>
                                 &times;

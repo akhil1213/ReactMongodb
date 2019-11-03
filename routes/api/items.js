@@ -11,7 +11,6 @@ const Item = require('../../models/Item');
 
 router.get("/", (req,res) => {
     Item.find()
-        .sort({ date: -1})//sort by date
         .then(items => res.json(items));
 });
 
