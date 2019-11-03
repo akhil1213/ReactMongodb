@@ -42,10 +42,10 @@ router.put("/:id", (req,res) => {
     const newItem = new Item({
         name: req.body.name
     });
-    Item.findByIdAndUpdate(req.params.id, newItem, (err) => {
+    Item.findByIdAndUpdate({_id: req.params.id}, {$set: {name:req.body.name}}, (err) => {
         if (err) return res.json({ success: false, error: err });
         return res.json({ success: true });
-      });
+    });
 })//if user gives wrong id we catch error
 module.exports = router;//no other file will be able to read whats in here without this
 
