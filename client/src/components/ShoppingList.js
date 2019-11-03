@@ -26,6 +26,10 @@ class ShoppingList extends Component {
             name:message
         });
     }
+    deleteFromDB = (id) =>{
+        axios.delete(`http://www.localhost:5000/api/items/5dbf2962ff77f52ccb310f7a`)
+        .then(res => console.log(res));
+    }
     render(){
         //const { items } = this.state;//instead of using this.state.items you just use items
         return(
@@ -52,9 +56,11 @@ class ShoppingList extends Component {
                                     color="danger"
                                     size="sm"
                                     onClick={() => {
-                                        this.setState(state => ({
-                                            items: state.items.filter(item =>  item.id != id)
-                                        }));
+                                        // this.setState(state => ({
+                                        //     items: state.items.filter(item =>  item.id != id)
+                                        // }));
+                                        console.log(this.state.items);
+                                        this.deleteFromDB({id});
                                     }}>
                                 &times;
                                 </Button>
