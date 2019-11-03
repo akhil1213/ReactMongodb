@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require("body-parser");//You need to use bodyParser() if you 
+//const bodyParser = require("body-parser");//You need to use bodyParser() if you 
 const router = express.Router();
 
 // Item Model
