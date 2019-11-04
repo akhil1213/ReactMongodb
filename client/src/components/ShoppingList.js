@@ -35,6 +35,7 @@ class ShoppingList extends Component {
         axios.put('http://www.localhost:5000/api/items/'+id,{name:name})
         .then(res=> console.log(res));
     }
+    
     render(){
         //const { items } = this.state;//instead of using this.state.items you just use items
         return(
@@ -61,8 +62,24 @@ class ShoppingList extends Component {
                                     color="danger"
                                     size="sm"
                                     onClick={() => {
-                                        const name = prompt('change name');
-                                        this.updateNameForId(_id,name);
+                                        const newName = prompt('change name');
+                                        this.updateNameForId(_id,newName);//updates name for id in backend
+                                        var index;
+                                        /*need the index of the array in order for the change to appear 
+                                        on the frontend without reloading the page. We know that we are given
+                                        a unique id, we can go through the whole array starting from index 0
+                                        and stop once we find an item in the array with ._id equal to the
+                                        item that we want to update's id and we change that items name.*/
+                                        for(var i = 0; i < this.state.items.length; i++){
+                                            if(this.state.items[i]._id === _id){
+                                                this.state.items[i].name = newName;
+                                                break;
+                                            }
+                                        }
+                                        // this.state.items[index].name = newName;
+                                        this.setState( state => ({
+                                            items:this.state.items
+                                        }));
                                     }}></Button>
                                 <Button 
                                     className="remove-btn"
